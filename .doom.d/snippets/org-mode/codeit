@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: codeit 
+# key: codeit
+# --
+
+#+begin_src shell -n :exports both :results output verbatim :tangle file
+ghc hello.hs
+#+end_src
