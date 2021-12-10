@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/kdb/.vim'
+let g:netrw_dirhist_7='/home/kdb/Documents/gitstage/README'
+let g:netrw_dirhist_6='/home/kdb/.cmake'
+let g:netrw_dirhist_5='/home/kdb/.atom'
+let g:netrw_dirhist_4='/home/kdb/blog/content/physics'
+let g:netrw_dirhist_3='/home/kdb/Documents/homework/hw_3/Lucky_Duck_Investigations/Roulette_loss_Investigation/Player_Dealer_Correlation'
+let g:netrw_dirhist_2='/usr/lib/python2.7/site-packages/termcolor-1.1.0-py2.7.egg-info'
+let g:netrw_dirhist_1='/etc/dconf'
