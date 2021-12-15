@@ -1,0 +1,346 @@
+" Vundle -----------------------------------------------------------------------
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+
+Plugin 'jpalardy/vim-slime', { 'for': ['python', 'julia']}
+Plugin 'hanschen/vim-ipython-cell', { 'for': ['python', 'julia'] }
+Plugin 'JuliaEditorSupport/julia-vim'
+Plugin 'idris-hackers/idris-vim'
+Plugin 'leanprover/lean.vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-sensible'
+Plugin 'scrooloose/syntastic'
+let g:syntastic_always_populate_loc_list=1
+Plugin 'dag/vim2hs'
+Plugin 'xavierd/clang_complete'
+"{{ The Basics }}
+Plugin 'itchyny/lightline.vim'                       " Lightline statusbar
+Plugin 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
+Plugin 'frazrepo/vim-rainbow'
+"{{ File management }}
+Plugin 'vifm/vifm.vim'                               " Vifm
+Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/nerdtree'                         " Nerdtree
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'     " Highlighting Nerdtree
+Plugin 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
+"{{ Productivity }}
+Plugin 'vimwiki/vimwiki'                             " VimWiki
+Plugin 'jreybert/vimagit'                            " Magit-like plugin for vim
+"{{ Tim Pope Plugins }}
+Plugin 'tpope/vim-surround'                          " Change surrounding marks
+"{{ Syntax Highlighting and Colors }}
+Plugin 'PotatoesMaster/i3-vim-syntax'                " i3 config highlighting
+Plugin 'kovetskiy/sxhkd-vim'                         " sxhkd highlighting
+Plugin 'vim-python/python-syntax'                    " Python highlighting
+Plugin 'ap/vim-css-color'                            " Color previews for CSS
+"{{ Junegunn Choi Plugins }}
+Plugin 'junegunn/goyo.vim'                           " Distraction-free viewing
+Plugin 'junegunn/limelight.vim'                      " Hyperfocus on a range
+Plugin 'junegunn/vim-emoji'
+call vundle#end()            " required
+" Vundle -----------------------------------------------------------------------
+
+"color penultimate
+" file type and syntax highliting on
+filetype plugin indent on
+syntax on
+set encoding=utf-8
+set clipboard=unnamedplus
+set hlsearch
+" => General Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set path+=**					" Searches current directory recursively.
+set wildmenu					" Display all matches when tab complete.
+set incsearch                   " Incremental search
+set hidden                      " Needed to keep multiple buffers open
+set nobackup                    " No auto backups
+set noswapfile                  " No swap
+set t_Co=256                    " Set if term supports 256 colors.
+set number relativenumber       " Display line numbers
+syntax enable
+let g:rehash256 = 1
+" whitespaces
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=cyan guibg=cyan
+autocmd InsertLeave * redraw!
+match ExtraWhitespace /\s\+$\| \+\ze\t/
+autocmd BufWritePre * :%s/\s\+$//e
+
+" color scheme
+"colorscheme inkpot
+"colorscheme softblue
+"colorscheme penultimate
+colorscheme jellybeans
+" sessions
+inoremap jk <ESC>
+let mapleader = " "
+noremap <F1> :mksession! .vim.session <cr>
+noremap <F2> :source .vim.session <cr>
+noremap <F3> :! rm .vim.session <cr>
+
+" for autoread to auto load
+au FocusGained,BufEnter * :silent! !
+au FocusLost,WinLeave * :silent! w
+
+" specific settings
+set fo+=t
+set t_Co=256
+set nocursorline
+set title
+set bs=2
+set noautoindent
+set ruler
+set shortmess=aoOTI
+set nocompatible
+set showmode
+set splitbelow
+set nomodeline
+set showcmd
+set showmatch
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set cinoptions=(0,m1,:1
+set tw=80
+set formatoptions=tcqro2
+set smartindent
+set laststatus=2
+set nomodeline
+set clipboard=unnamed
+set softtabstop=2
+set showtabline=1
+set sidescroll=5
+set scrolloff=4
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set foldmethod=marker
+set ttyfast
+set history=10000
+set hidden
+set colorcolumn=81
+set number
+set complete=.,w,b,u,t
+set completeopt=longest,menuone,preview
+set noswapfile
+set foldlevelstart=0
+set wildmenu
+set wildmode=list:longest,full
+set nowrap
+set statusline=%{getcwd()}\/\%f%=%-14.(%l,%c%V%)\ %P
+set autoread
+set conceallevel=2
+set concealcursor=vin
+
+" backup
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+set directory=~/.vim/tmp/swap//
+
+" make directories automatically if they don't already exist
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+
+" close brackets
+":inoremap ( ()<Esc>i
+":inoremap < <><Esc>i
+":inoremap { {}<Esc>i
+":inoremap [ []<Esc>i
+":inoremap " ""<Esc>i
+":inoremap ' ''<Esc>i
+":inoremap ` ``<Esc>i
+
+" cursorline
+au WinLeave * set nocursorline
+au WinEnter * set cursorline
+set cursorline
+
+" clang stuff
+let g:clang_library_path='/usr/lib/'
+let g:clang_user_options='|| exit 0'
+let g:clang_complete_auto = 1
+let g:clang_compelte_macros=1
+let g:clang_complete_copen = 1
+let g:clang_debug = 1
+let g:clang_snippets=1
+let g:clang_conceal_snippets=1
+let g:clang_snippets_engine='clang_complete'
+
+
+" autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+let NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize=38
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Theming
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
+highlight CursorLineNr     ctermfg=7    ctermbg=8       cterm=none
+highlight VertSplit        ctermfg=0    ctermbg=8       cterm=none
+highlight Statement        ctermfg=2    ctermbg=none    cterm=none
+highlight Directory        ctermfg=4    ctermbg=none    cterm=none
+highlight StatusLine       ctermfg=7    ctermbg=8       cterm=none
+highlight StatusLineNC     ctermfg=7    ctermbg=8       cterm=none
+highlight NERDTreeClosable ctermfg=2
+highlight NERDTreeOpenable ctermfg=8
+highlight Comment          ctermfg=4    ctermbg=none    cterm=italic
+highlight Constant         ctermfg=12   ctermbg=none    cterm=none
+highlight Special          ctermfg=4    ctermbg=none    cterm=none
+highlight Identifier       ctermfg=6    ctermbg=none    cterm=none
+highlight PreProc          ctermfg=5    ctermbg=none    cterm=none
+highlight String           ctermfg=12   ctermbg=none    cterm=none
+highlight Number           ctermfg=1    ctermbg=none    cterm=none
+highlight Function         ctermfg=1    ctermbg=none    cterm=none
+" highlight WildMenu         ctermfg=0       ctermbg=80      cterm=none
+" highlight Folded           ctermfg=103     ctermbg=234     cterm=none
+" highlight FoldColumn       ctermfg=103     ctermbg=234     cterm=none
+" highlight DiffAdd          ctermfg=none    ctermbg=23      cterm=none
+" highlight DiffChange       ctermfg=none    ctermbg=56      cterm=none
+" highlight DiffDelete       ctermfg=168     ctermbg=96      cterm=none
+" highlight DiffText         ctermfg=0       ctermbg=80      cterm=none
+" highlight SignColumn       ctermfg=244     ctermbg=235     cterm=none
+" highlight Conceal          ctermfg=251     ctermbg=none    cterm=none
+" highlight SpellBad         ctermfg=168     ctermbg=none    cterm=underline
+" highlight SpellCap         ctermfg=80      ctermbg=none    cterm=underline
+" highlight SpellRare        ctermfg=121     ctermbg=none    cterm=underline
+" highlight SpellLocal       ctermfg=186     ctermbg=none    cterm=underline
+" highlight Pmenu            ctermfg=251     ctermbg=234     cterm=none
+" highlight PmenuSel         ctermfg=0       ctermbg=111     cterm=none
+" highlight PmenuSbar        ctermfg=206     ctermbg=235     cterm=none
+" highlight PmenuThumb       ctermfg=235     ctermbg=206     cterm=none
+" highlight TabLine          ctermfg=244     ctermbg=234     cterm=none
+" highlight TablineSel       ctermfg=0       ctermbg=247     cterm=none
+" highlight TablineFill      ctermfg=244     ctermbg=234     cterm=none
+" highlight CursorColumn     ctermfg=none    ctermbg=236     cterm=none
+" highlight CursorLine       ctermfg=none    ctermbg=236     cterm=none
+" highlight ColorColumn      ctermfg=none    ctermbg=236     cterm=none
+" highlight Cursor           ctermfg=0       ctermbg=5       cterm=none
+" highlight htmlEndTag       ctermfg=114     ctermbg=none    cterm=none
+" highlight xmlEndTag        ctermfg=114     ctermbg=none    cterm=none
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vifm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>vv :Vifm<CR>
+map <Leader>vs :VsplitVifm<CR>
+map <Leader>sp :SplitVifm<CR>
+map <Leader>dv :DiffVifm<CR>
+map <Leader>tv :TabVifm<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VimWiki
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim-Instant-Markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:instant_markdown_autostart = 0         " Turns off auto preview
+let g:instant_markdown_browser = "surf"      " Uses surf for preview
+map <Leader>md :InstantMarkdownPreview<CR>   " Previews .md file
+map <Leader>ms :InstantMarkdownStop<CR>      " Kills the preview
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Open terminal inside Vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>tt :vnew term://fish<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Mouse Scrolling
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set mouse=nicr
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Splits and Tabbed Files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set splitbelow splitright
+
+" Remap splits navigation to just CTRL + hjkl
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Make adjusing split sizes a bit more friendly
+noremap <silent> <C-Left> :vertical resize +3<CR>
+noremap <silent> <C-Right> :vertical resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
+
+" Change 2 split windows from vert to horiz or horiz to vert
+map <Leader>th <C-w>t<C-w>H
+map <Leader>tk <C-w>t<C-w>K
+
+" Removes pipes | that act as seperators on splits
+set fillchars+=vert:\
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Other Stuff
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:python_highlight_all = 1
+
+au! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+au BufEnter *.org            call org#SetOrgFileType()
+
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+
+" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+let s:opam_share_dir = system("opam config var share")
+let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+let s:opam_configuration = {}
+
+function! OpamConfOcpIndent()
+  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+endfunction
+let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+function! OpamConfOcpIndex()
+  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+endfunction
+let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+function! OpamConfMerlin()
+  let l:dir = s:opam_share_dir . "/merlin/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+for tool in s:opam_packages
+  " Respect package order (merlin should be after ocp-index)
+  if count(s:opam_available_tools, tool) > 0
+    call s:opam_configuration[tool]()
+  endif
+endfor
+" ## end of OPAM user-setup addition for vim / base ## keep this line
+" ## added by OPAM user-setup for vim / ocp-indent ## fd00c3f03480a5e80a1a241b9b9abd23 ## you can edit, but keep this line
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/kdb/.opam/4.13.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
