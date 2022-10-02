@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: blog_post
+# key: blog_post
+# --
+
+#+title: Foundations
+#+hugo_base_dir: /home/kdb/Documents/github/owlglass
+#+hugo_auto_set_lastmod: t
+#+options: H:2
+#+HUGO_SECTION: infosec/bash
+#+hugo_weight: 1

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: julia_src
+# key: julia_src
+# --
+
+#+begin_src julia :exports both :results output verbatim
+
+#+end_src

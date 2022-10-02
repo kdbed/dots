@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: haskell-org
+# uuid:
+# key: trigger-key
+# condition: t
+# --
+
+#+begin_src haskell :exports both :post org-babel-haskell-formatter(*this*)
+  <code>
+#+end_src

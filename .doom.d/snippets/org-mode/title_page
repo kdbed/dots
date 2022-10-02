@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: title_page
+# key: title_page
+
+#+BEGIN_SRC markdown :file /home/kdb/Documents/github/owlglass/content/infosec
+---
+Title:
+weight:
+Chapter: true
+---
+
+### sub
+
+# main
+
+comments
+
+
+#+END_SRC

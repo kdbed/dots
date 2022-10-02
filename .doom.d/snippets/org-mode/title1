@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: title1
+# key: title1
+# --
+
+#+BEGIN_SRC markdown :tangle /home/kdb/Documents/github/owlglass/content/infosec
+---
+Title:
+weight:
+chapter: true
+pre: "<b>1. </b>"
+---
+
+### sub
+
+# main
+
+comments
+#+END_SRC
